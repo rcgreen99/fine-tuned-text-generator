@@ -7,3 +7,4 @@ By fine tuning a LLM using the works of Tolkien, I hope to produce a model capab
 In principal, the same exact fine tuning process can be used with a different dataset to produce a model that generates text more similar to the dataset.
 
 ## About
+This project is in the introductory stages.

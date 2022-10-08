@@ -2,7 +2,7 @@
 
 ## TODO
 * Read up on text generation using LLMs
-* Find tolkien dataset
+* Gather more data (i.e. The Hobbit and other works) 
 * Pick LLM to fine tune
 
 ## Useful links

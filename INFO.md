@@ -1,11 +1,12 @@
 ## Notes
-* Will be using gpt-neo 
+* Will be using gpt-neo
+
 
 ## TODO
+* Figure out how to split train/val data efficiently
+  * Is random split okay?
 * Read up on DeepSpeed
 * Gather more data 
-* Figure out how I want to format my Dataset class
-  * 512 tokens? Paragraphs? Sentences?
   * Do I need to remove accented characters and special characters?
     * Or should I use this https://github.com/huggingface/tokenizers/issues/377
 

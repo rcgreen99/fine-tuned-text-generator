@@ -10,7 +10,7 @@ class TrainingSessionArgParser:
         self.parser.add_argument(
             "--filename",
             type=str,
-            default="data/tolkien-sentences.dsv",
+            default="data/tolkien-sentences.json",
             help="Path to the dataset",
         )
         self.parser.add_argument(

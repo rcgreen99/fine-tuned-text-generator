@@ -1,17 +1,33 @@
 ## Notes
-* Will be using gpt-neo of some size
+* Will be using gpt-neo 
 
 ## TODO
-* Read up on text generation using LLMs
-* Gather more data (i.e. The Hobbit and other works) 
+* Read up on DeepSpeed
+* Gather more data 
 * Figure out how I want to format my Dataset class
   * 512 tokens? Paragraphs? Sentences?
   * Do I need to remove accented characters and special characters?
     * Or should I use this https://github.com/huggingface/tokenizers/issues/377
 
-* Once data configuration is known, split data into train, val, test
+
+
+## Data Collection
+Books/writing of Tolkien to collect
+* Unfinished Tales of Numenor
+* The History of Middle Earth (1-12)
+* The Children of Hurin
+* Beren and Luthien
+
 
 ## Useful links
+
+* Example of fine tuning gpt-neo:
+  * https://github.com/dredwardhyde/gpt-neo-fine-tuning-example/blob/main/gpt_neo.py
+
+* Full guide:
+  * https://towardsdatascience.com/guide-to-fine-tuning-text-generation-models-gpt-2-gpt-neo-and-t5-dc5de6b3bc5e
+
+
 * How to Fine-Tune GPT-2 For Text Generation
   * https://towardsdatascience.com/how-to-fine-tune-gpt-2-for-text-generation-ae2ea53bc272
 

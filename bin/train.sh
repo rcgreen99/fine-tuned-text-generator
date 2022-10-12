@@ -1,3 +1,3 @@
-#!/usr/bin/env/ bash
+#!/usr/bin/env bash
 
-python3 src.training.training_session "$@"
+python3 -m src.training.training_session "$@"

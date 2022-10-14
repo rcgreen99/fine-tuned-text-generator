@@ -3,13 +3,11 @@
 
 
 ## TODO
-* Figure out how to split train/val data efficiently
-  * Is random split okay?
+* Write Trainer class
+  * Read up on Data Collators for text generation
+* Check warning messages for Cuda etc
 * Read up on DeepSpeed
 * Gather more data 
-  * Do I need to remove accented characters and special characters?
-    * Or should I use this https://github.com/huggingface/tokenizers/issues/377
-
 
 
 ## Data Collection

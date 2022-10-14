@@ -8,7 +8,7 @@ class TolkienDatasetBuilder:
         self.filename = filename
         self.val_percent = val_percent
 
-    def build(self):
+    def build_datasets(self):
         """
         Reads in the dataset
         Returns a tuple of training and validation datasets
@@ -19,11 +19,11 @@ class TolkienDatasetBuilder:
 
         dataset = TolkienDataset(df)
 
-        train_dataset, val_dataset = self.split_dataset(dataset)
+        train_dataset, val_dataset = self.random_split_dataset(dataset)
 
         return train_dataset, val_dataset
 
-    def split_dataset(self, df):
+    def random_split_dataset(self, df):
         """
         Takes a pandas dataframe and splits it into a training and validation set
         Returns a tuple of training and validation datasets

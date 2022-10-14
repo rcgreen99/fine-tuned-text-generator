@@ -1,9 +1,10 @@
+import torch
 from transformers import AutoTokenizer
 from torch.utils.data import Dataset
 
 
 class TolkienDataset(Dataset):
-    def __init__(self, text_list, max_len=768):
+    def __init__(self, df, max_len=256):
         self.bos_token = "<|startoftext|>"
         self.eos_token = "<|endoftext|>"
         self.pad_token = "<|pad|>"
@@ -14,21 +15,22 @@ class TolkienDataset(Dataset):
             pad_token=self.pad_token,
         )
 
-        self.text_data = text_list
+        df = df.rename(columns={0: "sentences"})
+        self.data = df  # pandas dataframe
         self.max_len = max_len
 
     def __len__(self):
-        return len(self.text_data)
+        return len(self.data)
 
     def __getitem__(self, idx):
-        text = self.text_data[idx]
-        encodings_dict = self.encode_text(text)
+        sentence = self.data["sentences"][idx]
+        encodings_dict = self.encode_text(sentence)
 
         # no labels because input_ids will be used as "labels" for CausalLM
         return {
-            "text": text,
-            "input_ids": encodings_dict["input_ids"],
-            "attention_mask": encodings_dict["attention_mask"],
+            "sentence": sentence,
+            "input_ids": torch.tensor(encodings_dict["input_ids"]),
+            "attention_mask": torch.tensor(encodings_dict["attention_mask"]),
         }
 
     def encode_text(self, text):

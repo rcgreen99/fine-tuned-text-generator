@@ -1,51 +1,39 @@
+import pandas as pd
 from transformers import AutoTokenizer
 from src.tolkien_dataset import TolkienDataset
 
 
+df = pd.read_json("tests/fixtures/test-tolkien-sentences.json")
+
+
 def test_init():
-    dataset = TolkienDataset(["a", "b", "c"], max_len=124)
+    dataset = TolkienDataset(df, max_len=124)
     assert dataset.bos_token == "<|startoftext|>"
     assert dataset.eos_token == "<|endoftext|>"
     assert dataset.pad_token == "<|pad|>"
     # assert isinstance(dataset.tokenizer, AutoTokenizer)
-    assert dataset.text_data == ["a", "b", "c"]
-    assert len(dataset.text_data) == 3
+    # assert dataset.data == ["a", "b", "c"]
     assert dataset.max_len == 124
 
 
 def test_len():
     dataset = TolkienDataset(
-        [
-            "There once was a young man named Reese.",
-            "The dragon attacked!",
-            "Frodo went to bed.",
-        ],
+        df,
         max_len=64,
     )
-    assert len(dataset) == 3
+    assert len(dataset) == 50
 
 
 def test_getitem():
     # doesn't test whether the text is encoded correctly
-    dataset = TolkienDataset(
-        [
-            "There once was a young man named Reese.",
-            "The dragon attacked!",
-            "Frodo went to bed.",
-        ],
+    dataset = TolkienDataset(df)
+    assert (
+        dataset[1]["sentence"] == "Seven for the Dwarf-lords in their halls of stone,\n"
     )
-    assert dataset[1]["text"] == "The dragon attacked!"
 
 
 def test_encode_text():
-    dataset = TolkienDataset(
-        [
-            "There once was a young man named Reese.",
-            "The dragon attacked!",
-            "Frodo went to bed.",
-        ],
-        max_len=64,
-    )
+    dataset = TolkienDataset(df, max_len=64)
     encodings_dict = dataset.encode_text("This is a different text!")
 
     assert len(encodings_dict["input_ids"]) == 64

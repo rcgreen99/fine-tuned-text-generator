@@ -26,3 +26,4 @@ def test_random_split_dataset():
     train_dataset, val_dataset = builder.random_split_dataset(dataset)
     assert train_dataset is not None
     assert val_dataset is not None
+    assert train_dataset[0] is not None

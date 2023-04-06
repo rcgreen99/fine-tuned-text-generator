@@ -15,20 +15,19 @@ class TolkienDataset(Dataset):
             pad_token=self.pad_token,
         )
 
-        df = df.rename(columns={0: "sentences"})
-        self.data = df  # pandas dataframe
+        self.df = df  # pandas dataframe
         self.max_len = max_len
 
     def __len__(self):
-        return len(self.data)
+        return len(self.df)
 
     def __getitem__(self, idx):
-        sentence = self.data["sentences"][idx]
+        sentence = self.df["sentences"][idx]
         encodings_dict = self.encode_text(sentence)
 
         # no labels because input_ids will be used as "labels" for CausalLM
         return {
-            "sentence": sentence,
+            # "sentence": sentence,
             "input_ids": torch.tensor(encodings_dict["input_ids"]),
             "attention_mask": torch.tensor(encodings_dict["attention_mask"]),
         }

@@ -16,7 +16,7 @@ class TolkienDatasetBuilder:
         print(f"Reading data from {self.filename}...")
 
         df = pd.read_json(self.filename)
-
+        df = df.rename(columns={0: "sentences"})
         dataset = TolkienDataset(df)
 
         train_dataset, val_dataset = self.random_split_dataset(dataset)

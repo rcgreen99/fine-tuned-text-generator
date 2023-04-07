@@ -22,6 +22,7 @@ def test_build_datasets():
 def test_random_split_dataset():
     builder = TolkienDatasetBuilder(filename, 0.2)
     df = pd.read_json(filename)
+    df = df.rename(columns={0: "sentences"})
     dataset = TolkienDataset(df)
     train_dataset, val_dataset = builder.random_split_dataset(dataset)
     assert train_dataset is not None

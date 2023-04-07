@@ -8,6 +8,7 @@
 * Check warning messages for Cuda etc
 * Read up on DeepSpeed
 * Gather more data 
+* Add scheduler?
 
 
 ## Data Collection

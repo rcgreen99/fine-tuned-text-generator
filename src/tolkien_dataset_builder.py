@@ -4,9 +4,10 @@ from src.tolkien_dataset import TolkienDataset
 
 
 class TolkienDatasetBuilder:
-    def __init__(self, filename, val_percent=0.1):
+    def __init__(self, filename, model_name, val_percent=0.1):
         self.filename = filename
         self.val_percent = val_percent
+        self.model_name = model_name
 
     def build_datasets(self):
         """
@@ -17,7 +18,7 @@ class TolkienDatasetBuilder:
 
         df = pd.read_json(self.filename)
         df = df.rename(columns={0: "sentences"})
-        dataset = TolkienDataset(df)
+        dataset = TolkienDataset(df, self.model_name)
 
         train_dataset, val_dataset = self.random_split_dataset(dataset)
 

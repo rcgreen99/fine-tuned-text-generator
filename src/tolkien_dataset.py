@@ -4,12 +4,13 @@ from torch.utils.data import Dataset
 
 
 class TolkienDataset(Dataset):
-    def __init__(self, df, max_len=256):
+    def __init__(self, df, model_name, max_len=256):
+        self.model_name = model_name
         self.bos_token = "<|startoftext|>"
         self.eos_token = "<|endoftext|>"
         self.pad_token = "<|pad|>"
         self.tokenizer = AutoTokenizer.from_pretrained(
-            "EleutherAI/gpt-neo-125M",
+            self.model_name,
             bos_token=self.bos_token,
             eos_token=self.eos_token,
             pad_token=self.pad_token,
@@ -27,7 +28,7 @@ class TolkienDataset(Dataset):
 
         # no labels because input_ids will be used as "labels" for CausalLM
         return {
-            # "sentence": sentence,
+            "sentence": sentence,
             "input_ids": torch.tensor(encodings_dict["input_ids"]),
             "attention_mask": torch.tensor(encodings_dict["attention_mask"]),
         }

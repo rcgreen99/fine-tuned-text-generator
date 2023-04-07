@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from torch.optim import Adam
+from torch.optim import AdamW
 
 from rich.progress import (
     BarColumn,
@@ -26,7 +26,7 @@ class Trainer:
         self.epochs = epochs
 
         self.criterion = nn.CrossEntropyLoss()  # look into this
-        self.optimizer = Adam(
+        self.optimizer = AdamW(
             self.model.parameters(), lr=self.learning_rate
         )  # use AdamW?
 
@@ -70,7 +70,11 @@ class Trainer:
 
                 # forward and backward passes
                 self.optimizer.zero_grad()
-                outputs = self.model(input_ids, attention_mask)
+                # outputs = self.model(input_ids, attention_mask=attention_mask)
+                outputs = self.model(
+                    input_ids=input_ids, attention_mask=attention_mask, labels=targets
+                )
+                print(type(outputs))
                 loss, running_loss = self.calculate_loss(outputs, targets, running_loss)
                 loss.backward()
                 self.optimizer.step()
@@ -152,7 +156,8 @@ class Trainer:
         """
         input_ids = batch["input_ids"].to(self.device)
         attention_mask = batch["attention_mask"].to(self.device)
-        targets = batch["target"].to(self.device)
+        # targets = batch["target"].to(self.device)
+        targets = batch["input_ids"].to(self.device)
         return input_ids, attention_mask, targets
 
     def calculate_loss(self, outputs, targets, running_loss):

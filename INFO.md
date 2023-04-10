@@ -1,11 +1,5 @@
-## Notes
-* Will be using gpt-neo
-
-
 ## TODO
-* Write Trainer class
-  * Read up on Data Collators for text generation
-* Check warning messages for Cuda etc
+* Write custom Trainer class
 * Read up on DeepSpeed
 * Gather more data 
 * Add scheduler?
@@ -17,7 +11,6 @@ Books/writing of Tolkien to collect
 * The History of Middle Earth (1-12)
 * The Children of Hurin
 * Beren and Luthien
-
 
 ## Useful links
 
@@ -43,4 +36,3 @@ Books/writing of Tolkien to collect
 
 * Similar example
   * https://github.com/parvathysarat/gpt2-text-generation
-

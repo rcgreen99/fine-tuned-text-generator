@@ -9,6 +9,16 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 
+"""
+NOTE: THIS CLASS IS NOT BEING USED AT THE MOMENT
+
+Instead, I'm using the transformers.Trainer class
+in src/training/training_session.py
+
+This class has not been tested and doesn't work
+as a substitute.
+"""
+
 
 class Trainer:
     def __init__(

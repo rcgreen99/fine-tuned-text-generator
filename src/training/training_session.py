@@ -16,7 +16,7 @@ from src.training.training_session_arg_parser import TrainingSessionArgParser
 os.environ["WANDB_DISABLED"] = "true"
 
 # MODEL_NAME = "EleutherAI/gpt-neo-125M"
-MODEL_NAME = "facebook/opt-350m"
+# MODEL_NAME = "facebook/opt-350m"
 
 
 class TrainingSession:
@@ -27,7 +27,7 @@ class TrainingSession:
         self.eos_token = "<|endoftext|>"
         self.pad_token = "<|pad|>"
         self.tokenizer = AutoTokenizer.from_pretrained(
-            MODEL_NAME,
+            self.args.model_name,
             bos_token=self.bos_token,
             eos_token=self.eos_token,
             pad_token=self.pad_token,
@@ -41,7 +41,7 @@ class TrainingSession:
         self.trainer.train()
 
     def create_datasets(self):
-        builder = TolkienDatasetBuilder(self.args.filename, MODEL_NAME)
+        builder = TolkienDatasetBuilder(self.args.filename, self.args.model_name)
         self.train_dataset, self.val_dataset = builder.build_datasets()
 
     def create_dataloaders(self):
@@ -53,7 +53,7 @@ class TrainingSession:
         )
 
     def create_model(self):
-        self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME).cuda()
+        self.model = AutoModelForCausalLM.from_pretrained(self.args.model_name).cuda()
         self.model.resize_token_embeddings(len(self.tokenizer))
 
     def create_trainer(self):
@@ -67,18 +67,17 @@ class TrainingSession:
         time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         training_args = TrainingArguments(
             output_dir=f"./results/{time}",
-            num_train_epochs=1,
-            logging_steps=5000,
-            # save_strategy=IntervalStrategy.NO,
+            num_train_epochs=self.args.epochs,
             per_device_train_batch_size=16,
             # per_device_eval_batch_size=8,
+            # logging_steps=5000,
+            # logging_dir="./logs",
+            # save_strategy=IntervalStrategy.NO,
             # warmup_steps=100,
             # weight_decay=0.01,
-            logging_dir="./logs",
         )
         self.trainer = Trainer(
             model=self.model,
-            # args=self.args,
             args=training_args,
             train_dataset=self.train_dataset,
             eval_dataset=self.val_dataset,

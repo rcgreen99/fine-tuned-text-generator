@@ -14,6 +14,12 @@ class TrainingSessionArgParser:
             help="Path to the dataset",
         )
         self.parser.add_argument(
+            "--model_name",
+            type=str,
+            default="facebook/opt-350m",
+            help="HuggingFace CausalLM pre-trained model to be fine tuned",
+        )
+        self.parser.add_argument(
             "--epochs",
             type=int,
             default=3,

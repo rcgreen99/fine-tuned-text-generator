@@ -29,7 +29,7 @@ class Generator:
             bos_token_id=self.tokenizer.bos_token_id,
             eos_token_id=self.tokenizer.eos_token_id,
             pad_token_id=self.tokenizer.pad_token_id,
-            num_return_sequences=8,
+            num_return_sequences=3,
         )
         for i, sample_output in enumerate(sample_outputs):
             print(
